@@ -58,29 +58,38 @@ AI 処理先でのデータの扱いは、利用者が使用する API キーの
 
 ## Google Cloud Console での入力値
 
-OAuth 同意画面(Google Auth Platform > Branding)に次の URL を入力します。
+OAuth 同意画面(Google Auth Platform > Branding)の URL 欄には、**自己のドメイン**の URL を入力します。
 
-| 欄 | 入力値 |
+> `github.io` は共有ドメインのため、この欄には登録できません
+> (`github.io` を入れると `Invalid domain: must be a top private domain`、
+> `yama9108.github.io` を入れると `Missing domain: yama9108.github.io` とエラーになります)。
+> **独自ドメインを取得するまで、URL 欄は空のままにしてください。**
+
+| 欄 | 入力値(独自ドメイン取得後) |
 | --- | --- |
-| Application home page | `https://yama9108.github.io/Lucidpair/` |
-| Application privacy policy link | `https://yama9108.github.io/Lucidpair/privacy-policy.html` |
+| Application home page | `https://<独自ドメイン>/` |
+| Application privacy policy link | `https://<独自ドメイン>/privacy-policy.html` |
 
-公開後、Google Auth Platform > Audience の **「Publish app」** を押すと公開ステータスが
-`In production` になります。
+- 現在の公開ページ(GitHub Pages)は閲覧用の暫定版で、同意画面には独自ドメインの URL を登録します。
+- GitHub Pages に独自ドメインを設定すると、`github.io` 側の URL は新しいドメインへ
+  自動的にリダイレクトされます(手動での移設作業は不要です)。
+- 独自ドメインを取得できた時点で、この表の URL を実際のドメインへ差し替えてください。
 
-### 公開前の注意
+### 公開状態別の運用
 
-- **未検証のまま `In production` にした場合**、Google の未検証アプリ警告が同意画面に表示され、
-  同意できるユーザー数は**プロジェクト生涯で 100 人**まで(月初の更新ではなく累積)です。
-  検証を完了するとこの制限と警告は外れます。
+| 方針 | 内容 | 制約 |
+| --- | --- | --- |
+| **Testing のまま使う** | URL 欄は空のまま。テストユーザーだけが同意できます | 外部ユーザーが使う場合、`calendar.readonly` などの機密スコープを要求するとリフレッシュトークンが **7 日**で失効し、再接続が必要になります(基本プロフィールのスコープのみを要求している間は失効しません) |
+| **Publish app で In production** | Audience の「Publish app」を押す | 未検証アプリの警告が同意画面に表示され、同意できるユーザーは**プロジェクト生涯で 100 人**まで。検証を完了すると、この制限と警告は外れます |
+
+### 検証を申請するとき
+
 - 検証の申請は **Google Auth Platform の「Verification Center」** から行います
   (コンソールの左メニューから遷移できます)。
-- `gmail.readonly` は制限付きスコープのため、検証に加えてセキュリティ評価(CASA)が求められる可能性があります。
-- **独自ドメインの検討**: 本ページの公開先は GitHub Pages(`github.io`)ですが、これは共有ドメインのため
-  ドメイン所有を検証できません。OAuth 2.0 Policy は「ホームページが、自己が所有する
-  検証済みのドメイン上にあること」を求めています。検証を申請する前に
-  独自ドメインを取得し、そのドメインへ本ページと個人情報対策ページを移す予定です。
-  (移行後も `github.io` のページは残し、独自ドメインへリダイレクトする形です)
+- 検証には**自己が所有する検証済みドメイン**上のホームページが必須のため、
+  独自ドメインを取得してから申請します。
+- `gmail.readonly` は制限付きスコープのため、検証に加えてセキュリティ評価(CASA)が
+  求められる可能性があります。
 
 ## HTML ファイルの役割
 
