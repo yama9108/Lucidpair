@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lucid Pair — ローカル優先のデスクトップ AI 秘書</title>
+<meta name="description" content="Lucid Pair は Windows 向けデスクトップ AI 秘書です。取得したデータは原則として端末内で管理し、Google API Services User Data Policy(Limited Use を含む)への準拠を宣言しています。">
+<style>
+  :root { color-scheme: light dark; }
+  body { font-family: system-ui, "Yu Gothic UI", "Meiryo", sans-serif; line-height: 1.8;
+         margin: 0 auto; max-width: 820px; padding: 40px 20px 80px; }
+  h1 { font-size: 1.9rem; margin-bottom: .2em; }
+  h2 { margin-top: 2em; font-size: 1.2rem; }
+  .tag { color: #5f6b7a; font-size: .92rem; }
+  ul { padding-left: 1.2em; }
+  code { background: rgba(127,127,127,.14); padding: .1em .35em; border-radius: 4px; }
+  table { border-collapse: collapse; width: 100%; font-size: .95rem; }
+  th, td { border: 1px solid rgba(127,127,127,.35); padding: 8px 10px; text-align: left; vertical-align: top; }
+  .card { border: 1px solid rgba(127,127,127,.35); border-radius: 10px; padding: 14px 18px; margin: 18px 0; }
+  .note { border-left: 4px solid #1a73e8; padding: 10px 14px; background: rgba(26,115,232,.07); margin: 1em 0; }
+  .en { font-family: ui-monospace, "Cascadia Mono", Consolas, monospace; font-size: .82rem;
+        background: rgba(127,127,127,.10); padding: 10px 12px; border-radius: 6px; display: block; }
+  footer { margin-top: 3em; color: #5f6b7a; font-size: .9rem; }
+  a { color: #1a73e8; }
+</style>
+</head>
+<body>
+
+<h1>Lucid Pair</h1>
+<p class="tag">ローカル優先のデスクトップ AI 秘書 / Windows 11・x64 ・ 運営者: yama9108(個人)</p>
+
+<div class="card">
+  <strong>一言で:</strong> 取得したデータは<strong>原則として自分の端末内で管理</strong>します。
+  外部に送るのは「利用者が自分で OAuth で接続したサービス」「利用者が AI を有効にした場合の AI 処理先」
+  「利用者が有効にした場合の SMTP 送信先」だけです。開発者のサーバーには送信しません
+  (OAuth 連携も利用者の端末上で動作します)。
+</div>
+
+<h2>主な機能</h2>
+<ul>
+  <li><strong>作業の「後回し」</strong> — ボタンを押した瞬間の画面・作業場所・予定を記録して
+      タスク化し、期限の 5 分前にリマインドします。記録したスクリーンショットと詳細は
+      タスク画面からいつでも閲覧できます。</li>
+  <li><strong>画面分析オーバーレイ</strong> — 作業中のウィンドウの文字や操作画面を分析し、
+      その位置にマーキングと吹き出しを重ねます(クリックは透過)。</li>
+  <li><strong>予定のリマインド</strong> — 予定は 10 分前、予定のリマインドは設定時刻どおりに通知します。</li>
+  <li><strong>外部サービスの監視</strong> — Google カレンダー / Microsoft 365
+      (Outlook・OneDrive・Teams)/ Discord などを、利用者が接続したものだけ読み取ります。
+      公式 API がないサービスも、<strong>利用者が有効にした場合</strong>に
+      指定した定点領域の画面キャプチャ(保存なし)で監視できます。</li>
+  <li><strong>作業員モード(サンドボックス)</strong> — 実行は許可リストと信頼ディレクトリ内に限定され、
+      外部操作は承認ゲートを通ります。</li>
+</ul>
+
+<h2>Google API Services User Data Policy への準拠</h2>
+<span class="en">Lucid Pair's use and transfer to any other app of information received from Google APIs will adhere to the Google API Services User Data Policy, including the Limited Use requirements.</span>
+<p class="tag">
+  参照: <a href="https://developers.google.com/terms/api-services-user-data-policy" rel="noopener">Google API Services User Data Policy</a> /
+  <a href="https://developers.google.com/identity/protocols/oauth2/policies" rel="noopener">OAuth 2.0 Policy</a>
+</p>
+<p>Google API から取得したデータを広告に使わず、人が直接精査する用途にも使わず、
+AI モデルの学習データとしても使用しません。
+また、<strong>Google のメール・予定を外部の AI へ送ることもありません</strong>
+(端末内のルールベース処理のみで処理します)。詳細は
+<a href="./privacy-policy.html">個人情報対策(Privacy policy)</a>に記載しています。</p>
+
+<h2>申請するスコープ(すべて read-only)</h2>
+<table>
+  <tr><th>スコープ</th><th>区分</th><th>用途</th><th>状態</th></tr>
+  <tr><td><code>openid</code> / <code>email</code> / <code>profile</code></td><td>非機密</td><td>接続アカウントの表示</td><td>申請対象(現在付与済み)</td></tr>
+  <tr><td><code>calendar.readonly</code></td><td>機密</td><td>予定のリマインド生成</td><td>申請対象</td></tr>
+  <tr><td><code>gmail.readonly</code></td><td>制限付き</td><td>優先度判定・要約・約束の抽出</td><td>今回は申請しません(検証・セキュリティ評価の完了後に追加予定。現在の同意画面には含まれません)</td></tr>
+</table>
+
+<h2>プライバシー(要点)</h2>
+<table>
+  <tr><th>項目</th><th>内容</th></tr>
+  <tr><td>データの保存場所</td><td>原則として端末内(アプリケーションのローカル保存領域)</td></tr>
+  <tr><td>平常時の画面キャプチャ</td><td>取得しません(既定 OFF)。監視を有効にした場合も定点領域のみで、言語化後に画像は破棄(保存しません)</td></tr>
+  <tr><td>記録する内容</td><td>要約・キーワード・感情推定・予定や約束の抽出・負荷指標(CPU / RAM / GPU / VRAM)</td></tr>
+  <tr><td>「後回し」の画像</td><td>利用者がボタンを押した時だけ取得。端末内のみ保存し、削除で画像も削除</td></tr>
+  <tr><td>API キー・トークン</td><td>OS キーチェーンに保管(平文では保存しません)</td></tr>
+  <tr><td>SMTP 認証情報</td><td>利用者が管理する設定ファイル(環境変数)に平文。OS キーチェーンには保存しません</td></tr>
+  <tr><td>外部送信</td><td>利用者が接続したサービス / AI 処理先(利用者が AI を有効にした場合)/ SMTP 送信先(利用者が有効にした場合)のみ。<br>AI 処理先でのデータの扱いは、利用者が使用する API キーのプラン(無料枠/有料枠)に応じた提供元の規約に従います。開発者が AI 学習等の目的でデータを送ることはありません。</td></tr>
+  <tr><td>Google ユーザーデータ</td><td>外部 AI へは送信しません(端末内のルールベース処理のみ)</td></tr>
+  <tr><td>開発者への送信</td><td>なし(開発者のサーバーや API へ送信・保存されません)</td></tr>
+</table>
+<p><a href="./privacy-policy.html">個人情報対策(Privacy policy)全文</a></p>
+
+<h2>動作環境・配布</h2>
+<ul>
+  <li>Windows 11 / x64。ポータブル zip(インストール不要)で配布しています。</li>
+  <li>初回起動時にセットアップ画面(3D シーン)を表示します。Gemini API キーは任意です。</li>
+  <li>Google 連携を使う場合は、公式の Google ログイン画面で同意してください。
+      パスワードが Lucid Pair に入ることはなく(PKCE でトークンのみを交換)、
+      付与するスコープは同意画面で確認できます。</li>
+  <li>SMTP 通知を使う場合のみ、利用者が自分の設定ファイル(環境変数)にメールサーバーの情報を記載します
+      (既定で無効。アプリの画面から入力する項目ではありません)。</li>
+</ul>
+
+<footer>
+  Lucid Pair / お問い合わせ: <a href="https://github.com/yama9108/Lucidpair/issues">GitHub Issues</a>
+  (Issues は公開されます。個人情報を記載しないでください)<br>
+  最終更新日: 2026-10-21
+</footer>
+
+</body>
+</html>
